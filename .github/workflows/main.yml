@@ -24,7 +24,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+      #Displays date
+      - name: Current time
+        run: date
+      #Displays directory
+      - name: Current directory
+        run: ls -l
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
