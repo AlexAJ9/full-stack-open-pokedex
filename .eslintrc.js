@@ -21,6 +21,7 @@ module.exports = {
     "react", "jest",'cypress'
   ],
   "rules": {
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "indent": [
       "error",
         2
@@ -47,6 +48,5 @@ module.exports = {
     ],
     "no-console": "error",
     "react/prop-types": 0,
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
   }
 }
