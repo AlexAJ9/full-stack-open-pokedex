@@ -18,6 +18,8 @@ jobs:
           heroku_app_name: "cicdpokedex"
           heroku_email: "alexandar.aldzhabari@quanterall.com"
           healthcheck: "https://cicdpokedex.herokuapp.com/health"
+          checkstring: "ok"
+          rollbackonhealthcheckfailed: true
 
       - name: npm install
         run: npm install
