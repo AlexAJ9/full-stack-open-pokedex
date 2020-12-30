@@ -3,6 +3,9 @@ name: Deployment pipeline
 on:
   push:
     branches: [master]
+  pull_request:
+    branches: [master]
+    type: [opened, synchronize]
 
 jobs:
   deployment_pipeline:
@@ -12,7 +15,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - uses: akhileshns/heroku-deploy@v3.8.8
+      - name: deploy
+        if: ${{ github.event_name == 'push' }}
+        uses: akhileshns/heroku-deploy@v3.8.8
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "cicdpokedex"
