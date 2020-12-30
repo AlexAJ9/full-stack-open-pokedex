@@ -33,7 +33,7 @@ jobs:
 
       - name: Test
         run: npm run test
-         - name: deploy
+      - name: deploy
         if: ${{ github.event_name == 'push' && contains(env.COMMIT_MESSAGES,'skip') }}
         uses: akhileshns/heroku-deploy@v3.8.8
         with:
