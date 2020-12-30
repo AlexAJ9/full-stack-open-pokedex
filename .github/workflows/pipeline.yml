@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "12.x"
       - name: deploy
-        if: ${{ github.event_name == 'push' && contains($COMMIT_MESSAGES,'skip') }}
+        if: ${{ github.event_name == 'push' && contains(COMMIT_MESSAGES,'skip') }}
         uses: akhileshns/heroku-deploy@v3.8.8
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
