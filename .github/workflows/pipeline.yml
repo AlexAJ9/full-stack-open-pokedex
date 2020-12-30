@@ -18,22 +18,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: deploy
-        if: ${{ github.event_name == 'push' && env.COMMIT_MESSAGES == '2' }}
-        uses: akhileshns/heroku-deploy@v3.8.8
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "cicdpokedex"
-          heroku_email: "alexandar.aldzhabari@quanterall.com"
-          healthcheck: "https://cicdpokedex.herokuapp.com/health"
-          checkstring: "ok"
-          rollbackonhealthcheckfailed: true
-      - name: Bump version and add tag
-        if: ${{ github.event_name == 'push' && contains($COMMIT_MESSAGES,'skip') }}
-        uses: anothrNick/github-tag-action@1.33.0
-        env:
-          DEFAULT_BUMP: patch
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: npm install
         run: npm install
       - name: Lint
@@ -49,3 +33,19 @@ jobs:
 
       - name: Test
         run: npm run test
+         - name: deploy
+        if: ${{ github.event_name == 'push' && contains(env.COMMIT_MESSAGES,'skip') }}
+        uses: akhileshns/heroku-deploy@v3.8.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "cicdpokedex"
+          heroku_email: "alexandar.aldzhabari@quanterall.com"
+          healthcheck: "https://cicdpokedex.herokuapp.com/health"
+          checkstring: "ok"
+          rollbackonhealthcheckfailed: true
+      - name: Bump version and add tag
+        if: ${{ github.event_name == 'push' && contains(env.COMMIT_MESSAGES,'skip')  }}
+        uses: anothrNick/github-tag-action@1.33.0
+        env:
+          DEFAULT_BUMP: patch
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
