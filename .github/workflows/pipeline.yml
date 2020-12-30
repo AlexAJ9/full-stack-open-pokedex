@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "12.x"
       - name: deploy
-        if: ${{ github.event_name == 'push' && contains(${COMMIT_MESSAGES},'skip') }}
+        if: ${{ github.event_name == 'push' && contains($COMMIT_MESSAGES,'skip') }}
         uses: akhileshns/heroku-deploy@v3.8.8
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -28,7 +28,7 @@ jobs:
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
       - name: Bump version and add tag
-        if: ${{ github.event_name == 'push' && contains("$COMMIT_MESSAGES",'skip') }}
+        if: ${{ github.event_name == 'push' && contains($COMMIT_MESSAGES,'skip') }}
         uses: anothrNick/github-tag-action@1.33.0
         env:
           DEFAULT_BUMP: patch
